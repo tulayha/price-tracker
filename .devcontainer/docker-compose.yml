@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/price_tracker
+      - SCRAPE_INTERVAL_HOURS=6
+      - MAX_CONCURRENT_SCRAPES=2
+    networks:
+      - price-tracker-network
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=price_tracker
+    networks:
+      - price-tracker-network
+    ports:
+      - "5432:5432"
+
+networks:
+  price-tracker-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

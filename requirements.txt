@@ -1,0 +1,27 @@
+# Core dependencies
+fastapi>=0.95.0
+uvicorn>=0.22.0
+sqlalchemy>=2.0.0
+pydantic>=2.0.0
+python-dotenv>=1.0.0
+
+# Scraping
+playwright>=1.32.0
+
+# Database
+psycopg2-binary>=2.9.5
+alembic>=1.10.0
+
+# Utility
+python-multipart>=0.0.6
+aiofiles>=0.8.0
+
+# Testing
+pytest>=7.3.1
+pytest-asyncio>=0.21.0
+
+# Logging
+structlog>=23.1.0
+
+# Backend extras
+backoff>=2.2.1  # For retry mechanisms

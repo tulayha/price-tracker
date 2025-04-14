@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+*.pyd
+.Python
+env/
+venv/
+build/
+dist/
+
+# VS Code
+.vscode/
+
+# Playwright cache
+playwright-report/
+test-results/
+.ms-playwright/
+
+# Docker
+*.log
+*.pid
+*.db
+*.sqlite
+.DS_Store
+
+# System files
+Thumbs.db
