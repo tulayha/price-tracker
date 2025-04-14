@@ -53,10 +53,3 @@ price_tracker/
 ├── setup.bat
 └── README.md
 ```
-
-git init
-git add .
-git commit -m "Initial commit with devcontainer and setup"
-git branch -M main
-git remote add origin https://github.com/tulayha/price-tracker.git
-git push -u origin main
