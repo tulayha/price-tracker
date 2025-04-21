@@ -1,49 +1,23 @@
 #!/bin/bash
-# setup.sh
+# setup.sh - Optimized for running inside the dev container via postCreateCommand
 
-echo "🔧 Setting up Price Tracker dev environment..."
+echo "🔧 Running post-container setup..."
 
-# Check Python version (need 3.7+)
-python_version=$(python --version 2>&1)
-if ! [[ $python_version =~ 3\.([7-9]|1[0-9]) ]]; then
-  echo "❌ Error: Python 3.7 or higher is required."
-  echo "Current version: $python_version"
-  exit 1
-fi
-
-# Install dependencies
-if [ -f "requirements.txt" ]; then
-  echo "📦 Installing dependencies from requirements.txt..."
-  pip install -r requirements.txt
-else
-  echo "⚠️ requirements.txt not found, installing basic dependencies..."
-  pip install fastapi uvicorn sqlalchemy psycopg2-binary python-dotenv playwright alembic pytest
-fi
-
-# Install Playwright browsers
-echo "🌐 Installing Playwright browsers..."
-playwright install
-
-# Create .env if missing
+# Create .env with defaults if it doesn't exist
 if [ ! -f ".env" ]; then
-  echo "📝 Creating .env file..."
-  cat > .env << EOF
-# Database configuration
-DATABASE_URL=postgresql://postgres:postgres@db:5432/price_tracker
-# Scraper configuration
-SCRAPE_INTERVAL_HOURS=6
-MAX_CONCURRENT_SCRAPES=2
-EOF
+  echo "📝 .env file not found. Creating default .env..."
+  # Using printf for better compatibility and to avoid issues with EOF markers
+  printf '%s\n' \
+    "# Database configuration (Change for production!)" \
+    "DATABASE_URL=postgresql://postgres:postgres@db:5432/price_tracker" \
+    "# Scraper configuration" \
+    "SCRAPE_INTERVAL_HOURS=6" \
+    "MAX_CONCURRENT_SCRAPES=2" > .env
+  echo "✅ Default .env created. Remember to configure secrets appropriately for production."
 else
-  echo "✅ .env file already exists."
+  echo "✅ .env file already exists. Assuming it's configured."
 fi
 
-# Create project structure if not exists
-if [ ! -d "app" ]; then
-  echo "📁 Creating project structure..."
-  mkdir -p app/api/endpoints app/core app/models app/scrapers app/utils static/css static/js tests
-fi
-
-echo "✅ Setup complete."
-echo "▶️  Run the app with:"
-echo "    uvicorn app.main:app --reload"
+echo "✅ Post-container setup complete."
+echo "▶️  Run the app (inside container) with:"
+echo "    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"

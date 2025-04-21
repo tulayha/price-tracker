@@ -27,15 +27,29 @@ FastAPI backend for tracking product prices from Pakistani e-commerce sites like
 4. Run the API:
 
    ```bash
-   uvicorn main:app --reload
+   uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
    ```
 
 ### Local Setup (Alt)
 
 ```bash
-setup.bat
+# Windows
+python -m venv venv
 venv\Scripts\activate
-uvicorn main:app --reload
+pip install -r requirements.txt
+playwright install --with-deps chromium
+
+# Linux/macOS
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+playwright install --with-deps chromium
+
+# Create a .env file with database connection settings
+# You can use the .env.example file as a template
+cp .env.example .env
+# Then run the application
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ## Project Structure (WIP)
@@ -50,6 +64,6 @@ price_tracker/
 ├── tests/
 ├── .devcontainer/
 ├── requirements.txt
-├── setup.bat
+├── setup.sh
 └── README.md
 ```
