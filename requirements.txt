@@ -1,27 +1,28 @@
 # Core dependencies
-fastapi>=0.95.0
-uvicorn>=0.22.0
-sqlalchemy>=2.0.0
-pydantic>=2.0.0
-python-dotenv>=1.0.0
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+sqlalchemy[asyncio]==2.0.40
+pydantic==2.11.3
+python-dotenv==1.0.1
 
 # Scraping
-playwright>=1.32.0
+playwright==1.51.0
+aiohttp==3.11.17
 
 # Database
-psycopg2-binary>=2.9.5
-alembic>=1.10.0
+asyncpg==0.30.0
+alembic==1.15.2
 
 # Utility
-python-multipart>=0.0.6
-aiofiles>=0.8.0
+python-multipart==0.0.9
+aiofiles==23.2.1
 
 # Testing
-pytest>=7.3.1
-pytest-asyncio>=0.21.0
+pytest==8.3.5
+pytest-asyncio==0.26.0
 
 # Logging
-structlog>=23.1.0
+structlog==24.1.0
 
 # Backend extras
-backoff>=2.2.1  # For retry mechanisms
+backoff==2.2.1
